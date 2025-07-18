@@ -3,7 +3,7 @@
 ## 📌 Endpoint
 
 ```
-POST /api/auth/login
+POST /api/login
 ```
 
 **Content-Type:** `application/json`
@@ -11,8 +11,8 @@ POST /api/auth/login
 Пример запроса:
 ```json
 {
-  "username": "user@example.com",
-  "password": "123456"
+  "email": "eve.holt@reqres.in",
+  "password": "cityslicka"
 }
 ```
 
@@ -22,9 +22,9 @@ POST /api/auth/login
 
 | ID         | Название                             | Метод | Тело запроса                                                                 | Ожидаемый ответ         |
 |------------|---------------------------------------|--------|------------------------------------------------------------------------------|--------------------------|
-| TC_API_01  | Успешная авторизация с email          | POST   | `{"username": "user@example.com", "password": "123456"}`                     | `200 OK`, JWT токен      |
-| TC_API_02  | Успешная авторизация с телефоном      | POST   | `{"username": "+79991234567", "password": "123456"}`                         | `200 OK`, JWT токен      |
-| TC_API_03  | Авторизация с пробелами в email       | POST   | `{"username": " user@example.com ", "password": "123456"}`                   | `200 OK`, JWT токен      |
+| TC_API_01  | Успешная авторизация с email          | POST   | `{"username": "eve.holt@reqres.in", "password": "cityslicka"}`                     | `200 OK`, JWT токен      |
+| TC_API_02  | Успешная авторизация с телефоном      | POST   | `{"username": "+79991234567", "password": "cityslicka"}`                         | `200 OK`, JWT токен      |
+| TC_API_03  | Авторизация с пробелами в email       | POST   | `{"username": " eve.holt@reqres.in ", "password": "cityslicka"}`                   | `200 OK`, JWT токен      |
 
 ---
 
@@ -33,12 +33,12 @@ POST /api/auth/login
 | ID         | Название                             | Метод | Тело запроса                                                                 | Ожидаемый ответ         |
 |------------|---------------------------------------|--------|------------------------------------------------------------------------------|--------------------------|
 | TC_API_04  | Пустое тело запроса                   | POST   | `{}`                                                                         | `400 Bad Request`        |
-| TC_API_05  | Неверный пароль                       | POST   | `{"username": "user@example.com", "password": "wrong"}`                      | `401 Unauthorized`       |
-| TC_API_06  | Несуществующий пользователь           | POST   | `{"username": "nouser@mail.com", "password": "123456"}`                      | `401 Unauthorized`       |
-| TC_API_07  | Отсутствие поля `password`            | POST   | `{"username": "user@example.com"}`                                           | `400 Bad Request`        |
-| TC_API_08  | SQL-инъекция                          | POST   | `{"username": "' OR 1=1 --", "password": "123456"}`                          | `400/401`, не вход       |
-| TC_API_09  | XSS в логине                          | POST   | `{"username": "<script>alert(1)</script>", "password": "123456"}`            | `400 Bad Request`        |
-| TC_API_10  | Короткий пароль                       | POST   | `{"username": "user@example.com", "password": "1"}`                          | `400 Bad Request`        |
+| TC_API_05  | Неверный пароль                       | POST   | `{"username": "eve.holt@reqres.in", "password": "wrong"}`                      | `401 Unauthorized`       |
+| TC_API_06  | Несуществующий пользователь           | POST   | `{"username": "nouser@mail.com", "password": "cityslicka"}`                      | `401 Unauthorized`       |
+| TC_API_07  | Отсутствие поля `password`            | POST   | `{"username": "eve.holt@reqres.in"}`                                           | `400 Bad Request`        |
+| TC_API_08  | SQL-инъекция                          | POST   | `{"username": "' OR 1=1 --", "password": "cityslicka"}`                          | `400/401`, не вход       |
+| TC_API_09  | XSS в логине                          | POST   | `{"username": "<script>alert(1)</script>", "password": "cityslicka"}`            | `400 Bad Request`        |
+| TC_API_10  | Короткий пароль                       | POST   | `{"username": "eve.holt@reqres.in", "password": "1"}`                          | `400 Bad Request`        |
 
 ---
 
@@ -46,7 +46,7 @@ POST /api/auth/login
 
 | ID         | Название                             | Метод  | Тело запроса                                        | Ожидаемый результат              |
 |------------|---------------------------------------|---------|-----------------------------------------------------|----------------------------------|
-| TC_API_11  | Невалидный JSON                       | POST    | `{username: "user@example.com", password:123}`      | `400 Bad Request`               |
+| TC_API_11  | Невалидный JSON                       | POST    | `{username: "eve.holt@reqres.in", password:cityslicka}`      | `400 Bad Request`               |
 | TC_API_12  | Проверка CORS                         | OPTIONS | -                                                   | `204 No Content` или `200 OK`   |
 | TC_API_13  | Ограничение частоты запросов          | POST    | Множественные запросы > 5/сек                       | `429 Too Many Requests`         |
 | TC_API_14  | Запрос по HTTP                        | POST    | - (отправка без HTTPS)                              | Ошибка клиента или блокировка   |
